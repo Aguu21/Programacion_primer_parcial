@@ -48,7 +48,8 @@ def comparar_respuesta(pregunta:dict, respuesta:str, respuestasRepetidas:list):
     for item in respuestasRepetidas:
         if respuesta == item:
             return puntos
-    for i in range (1, len(pregunta)-1):
+
+    for i in range (1, 6):
         if pregunta[f"Respuesta_{i}"] == respuesta:
             puntos = pregunta[f"Cantidad_R{i}"]
             return puntos

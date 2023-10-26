@@ -94,6 +94,12 @@ while flag_Run:
             print(f"{pregunta[f'Respuesta_{i}']} + {pregunta[f'Cantidad_R{i}']}")
         nueva_ronda = False
     
+    #Ganaste un intento
+    if puntos_aumentos > 50:
+        puntos_aumentos -= 50
+        intentos += 1
+        txt_intentos = font_input.render(f"Intentos: {intentos}", True, (255, 255, 255))
+
     #Cambio de ronda
     if menu == 1 and (len(respuestasRepetidas) == 5 or timer < 0 or intentos < 1):
         nueva_ronda = True
@@ -110,11 +116,7 @@ while flag_Run:
                 premio = 500 * puntos_usuario
             menu = 2
 
-    #Ganaste un intento
-    if puntos_aumentos > 50:
-        puntos_aumentos -= 50
-        intentos += 1
-        txt_intentos = font_input.render(f"Intentos: {intentos}", True, (255, 255, 255))
+    
     
     #Eventos de teclado
     for evento in pygame.event.get():
@@ -151,15 +153,15 @@ while flag_Run:
                         tiempoExtra = 10 #Retrasa el tiempo 10 segundos
                         
                         #Se agrega la pregunta menos votada
-                        respuestaComodin = elegir_minimo(pregunta, respuestasRepetidas)
-                        rta = encontrarRespuesta(pregunta, respuestaComodin)
+                        respuestaComodin = elegir_minimo(preguntaNormalizada, respuestasRepetidas)
+                        rta = encontrarRespuesta(preguntaNormalizada, respuestaComodin)
                         respuestasRepetidas.append(respuestaComodin)
                         renderText = font.render(f'{pregunta[rta]}: {pregunta["Cantidad_R"+ rta[-1]]} argentinos', True, (255, 255, 255))
                         tamanoText = renderText.get_size()
                         
                         #Centrar texto
                         x = (ventana.get_width() - tamanoText[0]) // 2
-                        mostrarRespuestas.append([renderText, (x, 25 + 100 * int(rta[-1]))])
+                        mostrarRespuestas.append([renderText, (x, 135 + 83 * int(rta[-1]))])
                         multiplicador = True #Multiplica x 2 la siguiente respuesta
                         comodin = False
                     else:
